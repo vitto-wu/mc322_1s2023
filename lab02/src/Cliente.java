@@ -15,10 +15,23 @@ public class Cliente {
     }
 
     //Validação de CPF
-    public boolean validarCPF(){
-        String verificacao = this.cpf ;
+    public boolean digitosVerificadores(String verificacao){
+        for (int i = 0; i < 2; i++){
+            int soma = 0;
 
-        verificacao.replaceAll("/./-", "");
+            for (int j = 0; j < 9; j++){
+                soma += (verificacao.charAt(j+i) - '0') * (10 - j);
+            }
+
+            if ((11 - soma % 11) != (verificacao.charAt(9+i) - '0')){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean validarCPF(){
+        String verificacao = this.cpf.replaceAll("[^0-9]", "");
 
         if (verificacao.length() != 11){
             return false;
@@ -30,20 +43,11 @@ public class Cliente {
                     return false;
                 }
                 continue;
-            } else {
-                break;
             }
-
+            break;
         }
-    
-        return true;
-    }
 
-    private boolean digitosVerificadores(){
-        int digito = 0;
-        for (int i = 0; i > 1; i--){
-
-        }
+        return digitosVerificadores(verificacao);
     }
 
     //Getters e setters 
