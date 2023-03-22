@@ -8,14 +8,16 @@ public class Cliente {
     //Constructor
     public Cliente(String nome, String cpf, String dataNascimento, int idade, String endereco) {
         this.nome = nome;
-        this.cpf = cpf;
         this.dataNascimento = dataNascimento;
         this.idade = idade;
         this.endereco = endereco;
+        if(validarCPF(cpf)){
+            this.cpf = cpf;
+        }
     }
 
-    //Validação de CPF
-    public boolean digitosVerificadores(String verificacao){
+    //Verifica se os digitos verificadores são válidos
+    private boolean digitosVerificadores(String verificacao){
         for (int i = 0; i < 2; i++){
             int soma = 0;
 
@@ -30,8 +32,9 @@ public class Cliente {
         return true;
     }
 
-    public boolean validarCPF(){
-        String verificacao = this.cpf.replaceAll("[^0-9]", "");
+    //Validação de CPF
+    public boolean validarCPF(String cpf){
+        String verificacao = cpf.replaceAll("[^0-9]", "");
 
         if (verificacao.length() != 11){
             return false;
@@ -50,6 +53,11 @@ public class Cliente {
         return digitosVerificadores(verificacao);
     }
 
+    //
+    public String toString(){
+        return String.format("Nome: %s\nCPF: %s\nData de Nascimento: %s\nIdade: %d\nEndereço: %s", this.nome, this.cpf, this.dataNascimento, this.idade, this.endereco);
+    }
+
     //Getters e setters 
     public String getNome() {
         return nome;
@@ -61,6 +69,12 @@ public class Cliente {
 
     public String getCpf() {
         return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        if(validarCPF(cpf)){
+            this.cpf = cpf;
+        }
     }
 
     public String getDataNascimento() {
