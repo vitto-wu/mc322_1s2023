@@ -1,11 +1,11 @@
 import java.sql.Date;
-import java.util.List;
+import java.util.ArrayList;
 
 public class ClientePJ extends Cliente {
     private final String cnpj;
     private Date dataFundacao;
     
-    public ClientePJ(String nome, String endereco, List<Veiculo> listaVeiculos, String cnpj, Date dataFundacao) {
+    public ClientePJ(String nome, String endereco, ArrayList<Veiculo> listaVeiculos, String cnpj, Date dataFundacao) {
         super(nome, endereco, listaVeiculos);
         this.cnpj = cnpj;
         this.dataFundacao = dataFundacao;

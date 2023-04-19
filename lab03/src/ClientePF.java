@@ -1,5 +1,5 @@
 import java.util.Date;
-import java.util.List;
+import java.util.ArrayList;
 
 public class ClientePF extends Cliente {
     private final String cpf;
@@ -10,7 +10,7 @@ public class ClientePF extends Cliente {
     private Date dataNascimento;
 
     // Construtor
-    public ClientePF(String nome, String endereco, List<Veiculo> listaVeiculos, String cpf, String genero,
+    public ClientePF(String nome, String endereco, ArrayList<Veiculo> listaVeiculos, String cpf, String genero,
             String educacao, String classeEconomica, Date dataLicenca, Date dataNascimento) {
         super(nome, endereco, listaVeiculos);
         this.cpf = cpf;
