@@ -73,6 +73,11 @@ public class ClientePF extends Cliente {
                 this.cpf, this.genero, this.dataLicenca, this.educacao, this.dataNascimento, this.classeEconomica);
     }
 
+    @Override
+    public String getTipoCliente(){
+        return "PF";
+    }
+
     // Verifica se os digitos verificadores são válidos
     private boolean digitosVerificadores(String verificacao) {
         for (int i = 0; i < 2; i++) {

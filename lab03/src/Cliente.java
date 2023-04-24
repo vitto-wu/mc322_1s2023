@@ -17,6 +17,10 @@ public class Cliente {
         return String.format("Nome: %s\nEndereço: %s\nLista de Veículos: %s", this.nome, this.endereco, this.listaVeiculos);
     }
 
+    public String getTipoCliente(){
+        return null;
+    }
+
     //Getters e Setters
     public String getNome() {
         return nome;

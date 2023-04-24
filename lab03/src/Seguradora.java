@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Seguradora {
@@ -51,27 +50,46 @@ public class Seguradora {
         return false;
     }
 
-    //Lista todos os clientes
+    //Lista todos os clientes PJ ou PF
     public ArrayList <Cliente> listarClientes(String tipo_cliente){
+        ArrayList <Cliente> tipo_clientes = new ArrayList <Cliente>();
+
         for(Cliente clientesCadastrados : listaClientes){
-            if(clientesCadastrados.equals(cliente)){
-                return false;
+            if(clientesCadastrados.getTipoCliente() == tipo_cliente){
+                tipo_clientes.add(clientesCadastrados);
             }
         }
+
+        return tipo_clientes;
     }
 
     //Gera um novo sinistro
-    public boolean gerarSinistro(){
+    public boolean gerarSinistro(int id, String data, String endereco, Seguradora seguradora, Veiculo veiculo,
+    Cliente cliente){
+        Sinistro novoSinistro = new Sinistro(id, data, endereco, seguradora, veiculo, cliente);
 
+        for(Cliente clientesCadastrados : listaClientes){
+            if(clientesCadastrados.equals(novoSinistro)){
+                return false;
+            }
+        }
+
+        listaSinistros.add(novoSinistro);
+        return true;
     }
     
     //Verifica um sinistro
     public boolean visulizarSinistro(String cliente){
+        if(cliente == null){
+            return false;
+        }
+
         for(Sinistro sinistrosCadastrados : listaSinistros){
-            if(sinistrosCadastrados.equals(cliente)){
-                return false;
+            if(sinistrosCadastrados.getCliente().equals(cliente)){
+                return true;
             }
         }
+        return false;
     }
 
     //Lista todos os sinistros

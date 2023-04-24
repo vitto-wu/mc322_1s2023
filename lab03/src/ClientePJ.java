@@ -1,4 +1,4 @@
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 
 public class ClientePJ extends Cliente {
@@ -67,5 +67,10 @@ public class ClientePJ extends Cliente {
     @Override
     public String toString(){
         return super.toString() + String.format("CNPJ: %s\nData de Fundação: %s", this.cnpj, this.dataFundacao);
+    }
+
+    @Override
+    public String getTipoCliente(){
+        return "PJ";
     }
 }
