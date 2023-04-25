@@ -21,6 +21,64 @@ public class ClientePF extends Cliente {
         this.dataNascimento = dataNascimento;
     }
 
+    
+    @Override
+    public String toString() {
+        return super.toString() + String.format(
+                "CPF: %s\nGenero: %s\nData da Licença: %s\nEducação: %s\nData de Nascimento: %s\nClasse Econômica: %s",
+                this.cpf, this.genero, this.dataLicenca, this.educacao, this.dataNascimento, this.classeEconomica);
+    }
+
+    @Override
+    public String getTipoCliente(){
+        return "PF";
+    }
+
+    /**
+     * Verifica se os digitos verificadores são coerentes
+     * @param verificacao String cpf sem pontuação
+     * @return true caso os digitos forem validos e false caso não
+     */
+    private boolean digitosVerificadores(String verificacao) {
+        for (int i = 0; i < 2; i++) {
+            int soma = 0;
+
+            for (int j = 0; j < 9; j++) {
+                soma += (verificacao.charAt(j + i) - '0') * (10 - j);
+            }
+
+            if ((11 - soma % 11) != (verificacao.charAt(9 + i) - '0')) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * verifica se o cpf é valido
+     * @param cpf String cpf
+     * @return true caso o cpf é valido e false caso não
+     */
+    public boolean validarCPF(String cpf) {
+        String verificacao = cpf.replaceAll("[^0-9]", "");
+
+        if (verificacao.length() != 11) {
+            return false;
+        }
+
+        for (int i = 1; i < 11; i++) {
+            if (verificacao.charAt(0) == verificacao.charAt(i)) {
+                if (i == 10) {
+                    return false;
+                }
+                continue;
+            }
+            break;
+        }
+
+        return digitosVerificadores(verificacao);
+    }
+
     // Getters e Setters
     public String getCpf() {
         return cpf;
@@ -64,54 +122,5 @@ public class ClientePF extends Cliente {
 
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() + String.format(
-                "CPF: %sn\nGenero: %s\nData da Licença: %d\nEducação: %s\nData de Nascimento: %d\nClasse Econômica: %s\n",
-                this.cpf, this.genero, this.dataLicenca, this.educacao, this.dataNascimento, this.classeEconomica);
-    }
-
-    @Override
-    public String getTipoCliente(){
-        return "PF";
-    }
-
-    // Verifica se os digitos verificadores são válidos
-    private boolean digitosVerificadores(String verificacao) {
-        for (int i = 0; i < 2; i++) {
-            int soma = 0;
-
-            for (int j = 0; j < 9; j++) {
-                soma += (verificacao.charAt(j + i) - '0') * (10 - j);
-            }
-
-            if ((11 - soma % 11) != (verificacao.charAt(9 + i) - '0')) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    // Validação de CPF
-    public boolean validarCPF(String cpf) {
-        String verificacao = cpf.replaceAll("[^0-9]", "");
-
-        if (verificacao.length() != 11) {
-            return false;
-        }
-
-        for (int i = 1; i < 11; i++) {
-            if (verificacao.charAt(0) == verificacao.charAt(i)) {
-                if (i == 10) {
-                    return false;
-                }
-                continue;
-            }
-            break;
-        }
-
-        return digitosVerificadores(verificacao);
     }
 }

@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Sinistro {
     private final int id;
     private String data;
@@ -7,9 +9,9 @@ public class Sinistro {
     private Cliente cliente;
     
     //Constutor
-    public Sinistro(int id, String data, String endereco, Seguradora seguradora, Veiculo veiculo,
+    public Sinistro(String data, String endereco, Seguradora seguradora, Veiculo veiculo,
             Cliente cliente) {
-        this.id = id;
+        id = gerarId();
         this.data = data;
         this.endereco = endereco;
         this.seguradora = seguradora;
@@ -17,9 +19,20 @@ public class Sinistro {
         this.cliente = cliente;
     }
 
-    //Função na qual retorna os dados do sinistro
+    /**
+     * @return as informações do sinistro
+     */
     public String toString(){
-        return String.format("ID: %d\nData: %s\nEndereço: %s\nSeguradora: %s\nVeículo: %s\nCliente: %s", this.id, this.endereco, this.seguradora, this.veiculo, this.cliente);
+        return String.format("ID: %d\nData: %s\nEndereço: %s\n-Seguradora: \n%s-Veículo: \n%s\n-Cliente: \n%s", this.id, this.data, this.endereco, this.seguradora, this.veiculo, this.cliente);
+    }
+
+    /**
+     * Gera uma id entre 100000 e 99999
+     * @return id
+     */
+    public int gerarId() {
+        Random r = new Random();
+        return 100000 + r.nextInt(89999);
     }
     
     //Getters e Setters
@@ -66,6 +79,4 @@ public class Sinistro {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    
-    
 }

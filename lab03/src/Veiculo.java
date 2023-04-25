@@ -12,7 +12,9 @@ public class Veiculo {
         this.anoFabricacao = anoFabricacao;
     }
 
-    //Função na qual retorna os dados do veículo
+    /**
+     * @return as informações do veiculo
+     */
     public String toString(){
         return String.format("Placa: %s\nMarca: %s\nModelo: %s\nAno de Fabricação: %d", this.placa, this.marca, this.modelo, this.anoFabricacao);
     }
@@ -49,5 +51,4 @@ public class Veiculo {
     public void setAnoFabricacao(int anoFabricacao) {
         this.anoFabricacao = anoFabricacao;
     }
-    
 }

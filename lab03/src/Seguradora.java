@@ -9,17 +9,27 @@ public class Seguradora {
     private ArrayList <Cliente> listaClientes;
     
     //Construtor
-    public Seguradora(String nome, String telefone, String email, String endereco, ArrayList <Sinistro> listaSinistros,
-            ArrayList <Cliente> listaClientes) {
+    public Seguradora(String nome, String telefone, String email, String endereco) {
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
         this.endereco = endereco;
-        this.listaSinistros = listaSinistros;
-        this.listaClientes = listaClientes;
+        this.listaSinistros = new ArrayList <Sinistro>();
+        this.listaClientes = new ArrayList <Cliente>();
     }
 
-    //Cadastro do Cliente
+    /**
+     * @return informaçoes da seguradora
+     */
+    public String toString(){
+        return String.format("Nome: %s\nTelefone: %s\nEndereco: %s\nEmail: %s", this.nome, this.telefone, this.endereco, this.email);
+    }
+
+    /**
+     * Cadastra um cliente adicionando o na listaClientes caso seja válido ou não repetido
+     * @param cliente Cliente cliente
+     * @return true caso seja possivel e false caso não
+     */
     public boolean cadastrarCliente(Cliente cliente){
         if(cliente == null){
             return false;
@@ -35,14 +45,18 @@ public class Seguradora {
         return true;
     }
 
-    //Remover cliente da lista
+    /**
+     * Remove um cliente da listaClientes caso seja válido
+     * @param cliente Cliente cliente
+     * @return true caso seja possivel e false caso não
+     */
     public boolean removerCliente(String cliente){
         if(cliente == null){
             return false;
         }
 
         for(int i = 0; i < listaClientes.size(); i++){
-            if(listaClientes.get(i).equals(cliente)){
+            if(listaClientes.get(i).getNome().equals(cliente)){
                 listaClientes.remove(i);
                 return true;
             }
@@ -50,7 +64,11 @@ public class Seguradora {
         return false;
     }
 
-    //Lista todos os clientes PJ ou PF
+    /**
+     * Lista todos os clientes (PF ou PJ) da listaClientes
+     * @param tipo_cliente String tipo do cliente se é PF ou PJ
+     * @return ArrayList dos clientes
+     */
     public ArrayList <Cliente> listarClientes(String tipo_cliente){
         ArrayList <Cliente> tipo_clientes = new ArrayList <Cliente>();
 
@@ -63,13 +81,20 @@ public class Seguradora {
         return tipo_clientes;
     }
 
-    //Gera um novo sinistro
-    public boolean gerarSinistro(int id, String data, String endereco, Seguradora seguradora, Veiculo veiculo,
-    Cliente cliente){
-        Sinistro novoSinistro = new Sinistro(id, data, endereco, seguradora, veiculo, cliente);
+    /**
+     * gera um novo sinistro
+     * @param data String data do ocorrido
+     * @param endereco String endereço do ocorrido
+     * @param seguradora Seguradora seguradora
+     * @param veiculo Veiculo veiculo
+     * @return true caso seja possivel gerar e false caso tenha sinistro repetido na lista
+     */
+    public boolean gerarSinistro(String data, String endereco, Seguradora seguradora, Veiculo veiculo,
+    Cliente cliente){  
+        Sinistro novoSinistro = new Sinistro(data, endereco, seguradora, veiculo, cliente);
 
-        for(Cliente clientesCadastrados : listaClientes){
-            if(clientesCadastrados.equals(novoSinistro)){
+        for(Sinistro sinistrosCadastrados : listaSinistros){
+            if(sinistrosCadastrados.equals(novoSinistro)){
                 return false;
             }
         }
@@ -78,21 +103,27 @@ public class Seguradora {
         return true;
     }
     
-    //Verifica um sinistro
+    /**
+     * visualiza os sinistros de um cliente
+     * @param cliente String cliente
+     * @return true caso seja tenha e false caso não
+     */
     public boolean visulizarSinistro(String cliente){
-        if(cliente == null){
-            return false;
-        }
+        boolean tem = false;
 
-        for(Sinistro sinistrosCadastrados : listaSinistros){
-            if(sinistrosCadastrados.getCliente().equals(cliente)){
-                return true;
+        for(int i = 0; i < listaSinistros.size(); i++){
+            if(listaSinistros.get(i).getCliente().getNome().equals(cliente)){
+                System.out.println("\n" + listaSinistros.get(i));
+                tem = true;
             }
         }
-        return false;
+
+        return tem;
     }
 
-    //Lista todos os sinistros
+    /**
+     * @return lista dos sinistros
+     */
     public ArrayList <Sinistro> listarSinistros(){
         return listaSinistros;
     }

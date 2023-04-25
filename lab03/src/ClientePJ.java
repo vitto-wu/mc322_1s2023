@@ -10,21 +10,12 @@ public class ClientePJ extends Cliente {
         this.cnpj = cnpj;
         this.dataFundacao = dataFundacao;
     }
-
-    // Getters e Setters
-    public String getCnpj() {
-        return cnpj;
-    }
-
-    public Date getDataFundacao() {
-        return dataFundacao;
-    }
-
-    public void setDataFundacao(Date dataFundacao) {
-        this.dataFundacao = dataFundacao;
-    }
-
-    // Validar CNPJ
+    
+    /**
+     * Verifica se o cnpj é valido
+     * @param cnpj String cnpj
+     * @return true caso seja válido e false caso não
+     */
     public boolean validarCNPJ(String cnpj) {
         String verificacao = cnpj.replaceAll("[^0-9]", "");
         int[] multiplicadores = { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -72,5 +63,18 @@ public class ClientePJ extends Cliente {
     @Override
     public String getTipoCliente(){
         return "PJ";
+    }
+
+    // Getters e Setters
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public Date getDataFundacao() {
+        return dataFundacao;
+    }
+
+    public void setDataFundacao(Date dataFundacao) {
+        this.dataFundacao = dataFundacao;
     }
 }
